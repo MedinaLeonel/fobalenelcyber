@@ -3,8 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cyber Café Fútbol</title>
+    <title>FútbolTV - Canales en Vivo</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
+        :root {
+            --github-dark: #0d1117;
+            --discord-dark: #36393f;
+            --accent-blue: #58a6ff;
+            --accent-purple: #5865F2;
+            --accent-red: #ff0000;
+            --text-primary: #f0f6fc;
+            --text-secondary: #8b949e;
+            --border-color: rgba(88, 166, 255, 0.3);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -12,435 +24,889 @@
         }
 
         body {
-            font-family: 'Whitney', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-            background: #36393f;
+            background: linear-gradient(135deg, #0d1117 0%, #1a1f29 50%, #0d1117 100%);
+            color: var(--text-primary);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            color: #dcddde;
+            overflow-x: hidden;
         }
 
+        /* Header */
         .header {
-            background: #2f3136;
+            background: rgba(13, 17, 23, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
             padding: 1rem 0;
-            box-shadow: 0 1px 0 rgba(4, 4, 5, 0.2), 0 1.5px 0 rgba(6, 6, 7, 0.05), 0 2px 0 rgba(4, 4, 5, 0.05);
             position: sticky;
             top: 0;
-            z-index: 100;
+            z-index: 1000;
         }
 
-        .header-content {
+        .nav-container {
             max-width: 1200px;
             margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
             padding: 0 2rem;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
         }
 
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-        }
-
-        .logo-icon {
-            width: 40px;
-            height: 40px;
-            background: linear-gradient(135deg, #5865f2, #7289da);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 8px 16px rgba(88, 101, 242, 0.24);
-            transition: all 0.2s ease;
-        }
-
-        .logo-icon:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 20px rgba(88, 101, 242, 0.35);
-        }
-
-        .logo-icon::after {
-            content: '⚽';
-            font-size: 20px;
-            filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.3));
-        }
-
-        .brand-text {
-            display: flex;
-            flex-direction: column;
-            gap: 0.1rem;
-        }
-
-        .brand-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            color: #ffffff;
-            text-shadow: 0 0 10px rgba(88, 101, 242, 0.3);
-        }
-
-        .brand-subtitle {
-            font-size: 0.8rem;
-            color: #b9bbbe;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .status-indicator {
-            margin-left: auto;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            background: #40444b;
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            border: 1px solid #5865f2;
-        }
-
-        .status-dot {
-            width: 10px;
-            height: 10px;
-            background: #3ba55c;
-            border-radius: 50%;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.6; }
-        }
-
-        .status-text {
-            font-size: 0.9rem;
-            color: #dcddde;
-            font-weight: 500;
-        }
-
-        .main-content {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            padding: 3rem 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-            width: 100%;
-        }
-
-        .welcome-section {
-            text-align: center;
-            margin-bottom: 2rem;
-        }
-
-        .welcome-title {
+        .logo {
             font-size: 2rem;
-            font-weight: 700;
-            color: #ffffff;
-            margin-bottom: 0.5rem;
-            background: linear-gradient(90deg, #5865f2, #7289da, #5865f2);
-            background-size: 200% 100%;
+            font-weight: bold;
+            background: linear-gradient(45deg, var(--accent-red), var(--accent-blue));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: gradient-shift 3s ease-in-out infinite;
+            text-decoration: none;
         }
 
-        @keyframes gradient-shift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-
-        .welcome-subtitle {
-            font-size: 1.1rem;
-            color: #b9bbbe;
-            font-weight: 400;
-        }
-
-        .iframe-container {
-            width: 100%;
-            max-width: 900px;
-            background: #2f3136;
-            border-radius: 8px;
-            padding: 1.5rem;
-            box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.2);
-            border: 1px solid #40444b;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .iframe-header {
+        .nav-menu {
             display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 1rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid #40444b;
-        }
-
-        .iframe-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #ffffff;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .iframe-title::before {
-            content: '🎮';
-            font-size: 1rem;
-        }
-
-        .iframe-controls {
-            display: flex;
-            gap: 0.5rem;
-        }
-
-        .control-btn {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            cursor: pointer;
-            transition: opacity 0.2s ease;
-        }
-
-        .control-btn:hover {
-            opacity: 0.8;
-        }
-
-        .btn-close { background: #ed4245; }
-        .btn-minimize { background: #faa61a; }
-        .btn-maximize { background: #3ba55c; }
-
-        .iframe-wrapper {
-            position: relative;
-            width: 100%;
-            height: 0;
-            padding-bottom: 56.25%;
-            border-radius: 4px;
-            overflow: hidden;
-            background: #202225;
-        }
-
-        iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: none;
-            border-radius: 4px;
-            transition: all 0.2s ease;
-        }
-
-        .loading-placeholder {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            color: #72767d;
-            font-size: 1rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .loading-spinner {
-            width: 20px;
-            height: 20px;
-            border: 2px solid #40444b;
-            border-top: 2px solid #5865f2;
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-
-        .description {
-            text-align: center;
-            margin-top: 2rem;
-            color: #b9bbbe;
-            font-size: 1rem;
-            line-height: 1.6;
-            max-width: 600px;
-            background: #40444b;
-            padding: 1.5rem;
-            border-radius: 8px;
-            border-left: 4px solid #5865f2;
-        }
-
-        .footer {
-            background: #202225;
-            color: #72767d;
-            text-align: center;
-            padding: 2rem 0;
-            margin-top: auto;
-            border-top: 1px solid #40444b;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .footer-links {
-            display: flex;
+            list-style: none;
             gap: 2rem;
         }
 
-        .footer-link {
-            color: #b9bbbe;
+        .nav-menu a {
+            color: var(--text-primary);
             text-decoration: none;
-            font-size: 0.9rem;
-            transition: color 0.2s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: all 0.3s ease;
         }
 
-        .footer-link:hover {
-            color: #dcddde;
+        .nav-menu a:hover {
+            background: rgba(88, 166, 255, 0.2);
+            box-shadow: 0 0 15px rgba(88, 166, 255, 0.3);
         }
 
-        .discord-pattern {
-            position: fixed;
-            top: 0;
-            left: 0;
+        .theme-toggle {
+            background: var(--discord-dark);
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            background: var(--accent-purple);
+            box-shadow: 0 0 15px rgba(88, 101, 242, 0.4);
+        }
+
+        /* Main Container */
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        /* Zapping Slider */
+        .zapping-slider {
+            position: relative;
+            width: 100%;
+            height: 60vh;
+            min-height: 400px;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 0 30px rgba(88, 101, 242, 0.2);
+            margin-bottom: 3rem;
+            background: var(--discord-dark);
+        }
+
+        .slides-container {
+            position: relative;
             width: 100%;
             height: 100%;
-            opacity: 0.02;
-            pointer-events: none;
-            background-image: 
-                radial-gradient(circle at 25% 25%, #5865f2 2px, transparent 2px),
-                radial-gradient(circle at 75% 75%, #7289da 2px, transparent 2px);
-            background-size: 150px 150px;
-            z-index: -1;
+            overflow: hidden;
+        }
+
+        .slide {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease;
+            transform: translateX(100%);
+        }
+
+        .slide.active {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .slide.prev {
+            transform: translateX(-100%);
+        }
+
+        .slide-content {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #1a1f29, #2d3748);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .slide-content iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 8px;
+            background: rgba(0, 0, 0, 0.9);
+        }
+
+        .stream-placeholder {
+            width: 90%;
+            height: 80%;
+            background: rgba(0, 0, 0, 0.8);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid var(--accent-red);
+        }
+
+        .stream-placeholder i {
+            font-size: 4rem;
+            color: var(--accent-red);
+            margin-bottom: 1rem;
+            animation: pulse 2s infinite;
+        }
+
+        /* Fullscreen button */
+        .fullscreen-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid var(--accent-blue);
+            color: var(--text-primary);
+            padding: 0.5rem;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 20;
+            font-size: 1rem;
+        }
+
+        .fullscreen-btn:hover {
+            background: var(--accent-blue);
+            box-shadow: 0 0 15px rgba(88, 166, 255, 0.5);
+        }
+
+        .channel-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            padding: 2rem 1rem 1rem;
+            color: var(--text-primary);
+        }
+
+        .channel-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .match-info {
+            color: var(--text-secondary);
+            font-size: 1rem;
+        }
+
+        .live-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            background: var(--accent-red);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+        }
+
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: white;
+            border-radius: 50%;
+            animation: blink 1s infinite;
+        }
+
+        /* Navigation Controls */
+        .slider-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid var(--accent-blue);
+            color: var(--text-primary);
+            font-size: 2rem;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 10;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .slider-nav:hover {
+            background: var(--accent-blue);
+            box-shadow: 0 0 20px rgba(88, 166, 255, 0.5);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .slider-nav.prev {
+            left: 1rem;
+        }
+
+        .slider-nav.next {
+            right: 1rem;
+        }
+
+        /* Pagination Dots */
+        .pagination-dots {
+            position: absolute;
+            bottom: 1rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 0.5rem;
+            z-index: 10;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.4);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .dot.active {
+            background: var(--accent-red);
+            box-shadow: 0 0 10px var(--accent-red);
+        }
+
+        /* Channel Cards Grid */
+        .channels-section {
+            margin-bottom: 3rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(45deg, var(--accent-blue), var(--accent-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .channels-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .channel-card {
+            background: rgba(54, 57, 63, 0.8);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            border-left: 4px solid var(--accent-red);
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .channel-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-blue);
+            box-shadow: 0 10px 30px rgba(88, 166, 255, 0.3);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .channel-logo {
+            width: 50px;
+            height: 50px;
+            background: var(--accent-red);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .channel-name {
+            font-size: 1.2rem;
+            font-weight: bold;
+        }
+
+        .current-match {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .watch-btn {
+            background: linear-gradient(45deg, var(--accent-red), var(--accent-purple));
+            border: none;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .watch-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 5px 15px rgba(255, 0, 0, 0.4);
+        }
+
+        /* Footer */
+        .footer {
+            background: var(--github-dark);
+            border-top: 1px solid var(--border-color);
+            padding: 2rem 0;
+            text-align: center;
+            color: var(--text-secondary);
+        }
+
+        /* Animations */
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
         }
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            .header-content {
+            .nav-container {
                 padding: 0 1rem;
+                flex-wrap: wrap;
+                gap: 1rem;
             }
 
-            .brand-title {
-                font-size: 1.3rem;
+            .nav-menu {
+                order: 3;
+                width: 100%;
+                justify-content: center;
+                gap: 1rem;
             }
 
-            .status-indicator {
-                display: none;
+            .main-container {
+                padding: 1rem;
             }
 
-            .welcome-title {
+            .zapping-slider {
+                height: 50vh;
+                min-height: 300px;
+            }
+
+            .slider-nav {
+                width: 40px;
+                height: 40px;
                 font-size: 1.5rem;
             }
 
-            .main-content {
-                padding: 2rem 1rem;
+            .channels-grid {
+                grid-template-columns: 1fr;
             }
 
-            .iframe-container {
-                padding: 1rem;
-            }
-
-            .footer-content {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .footer-links {
-                gap: 1rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .brand-title {
-                font-size: 1.1rem;
-            }
-
-            .brand-subtitle {
-                font-size: 0.7rem;
-            }
-
-            .welcome-title {
-                font-size: 1.3rem;
-            }
-
-            .iframe-container {
-                padding: 0.75rem;
-            }
-
-            .description {
-                padding: 1rem;
-                font-size: 0.9rem;
+            .logo {
+                font-size: 1.5rem;
             }
         }
     </style>
 </head>
 <body>
-    <div class="discord-pattern"></div>
-    
+    <!-- Header -->
     <header class="header">
-        <div class="header-content">
-            <div class="logo-container">
-                <div class="logo-icon"></div>
-                <div class="brand-text">
-                    <div class="brand-title">Cyber Café Fútbol</div>
-                    <div class="brand-subtitle">Gaming & Sports</div>
-                </div>
-            </div>
-            <div class="status-indicator">
-                <div class="status-dot"></div>
-                <span class="status-text">En línea</span>
-            </div>
-        </div>
+        <nav class="nav-container">
+            <a href="#" class="logo">CyberCafe F.C.</a>
+            <ul class="nav-menu">
+                <li><a href="#"><i class="fas fa-home"></i> Inicio</a></li>
+                <li><a href="#"><i class="fas fa-tv"></i> Canales</a></li>
+                <li><a href="#"><i class="fas fa-heart"></i> Favoritos</a></li>
+            </ul>
+            <button class="theme-toggle">
+                <i class="fas fa-moon"></i>
+            </button>
+        </nav>
     </header>
 
-    <main class="main-content">
-        <div class="welcome-section">
-            <h1 class="welcome-title">¡Bienvenido al Cyber Café!</h1>
-            <p class="welcome-subtitle">Tu lugar para gaming y fútbol en línea</p>
-        </div>
+    <!-- Main Content -->
+    <main class="main-container">
+        <!-- Zapping Slider -->
+        <section class="zapping-slider">
+            <div class="slides-container">
+                <!-- Slide 1 - TUDN -->
+                <div class="slide active">
+                    <div class="slide-content">
+                        <iframe data-src="https://embed.ksdjugfsddeports.fun/embed2/tudn.html" 
+                                width="100%" 
+                                height="100%" 
+                                scrolling="no" 
+                                frameborder="0" 
+                                allowfullscreen="true"
+                                style="border-radius: 8px;">
+                        </iframe>
+                        <button class="fullscreen-btn" onclick="toggleFullscreen(this)">
+                            <i class="fas fa-expand"></i>
+                        </button>
+                        <div class="channel-info">
+                            <div class="live-indicator">
+                                <div class="live-dot"></div>
+                                EN VIVO
+                            </div>
+                            <div class="channel-title">TUDN</div>
+                            <div class="match-info">Transmisión en vivo</div>
+                        </div>
+                    </div>
+                </div>
 
-        <div class="iframe-container">
-            <div class="iframe-header">
-                <div class="iframe-title">Contenido Principal</div>
-                <div class="iframe-controls">
-                    <div class="control-btn btn-close"></div>
-                    <div class="control-btn btn-minimize"></div>
-                    <div class="control-btn btn-maximize"></div>
+                <!-- Slide 2 - Canal 2 -->
+                <div class="slide">
+                    <div class="slide-content">
+                        <iframe data-src="https://embed.ksdjugfsddeports.fun/embed2/directvsports.html" 
+                                width="100%" 
+                                height="100%" 
+                                scrolling="no" 
+                                frameborder="0" 
+                                allowfullscreen="true"
+                                style="border-radius: 8px;">
+                        </iframe>
+                        <button class="fullscreen-btn" onclick="toggleFullscreen(this)">
+                            <i class="fas fa-expand"></i>
+                        </button>
+                        <div class="channel-info">
+                            <div class="live-indicator">
+                                <div class="live-dot"></div>
+                                EN VIVO
+                            </div>
+                            <div class="channel-title">DirecTV Sports</div>
+                            <div class="match-info">Canal 2 - Listo para URL</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 3 - Canal 3 -->
+                <div class="slide">
+                    <div class="slide-content">
+                        <iframe data-src="https://embed.ksdjugfsddeports.fun/embed2/tycsports.html" 
+                                width="100%" 
+                                height="100%" 
+                                scrolling="no" 
+                                frameborder="0" 
+                                allowfullscreen="true"
+                                style="border-radius: 8px;">
+                        </iframe>
+                        <button class="fullscreen-btn" onclick="toggleFullscreen(this)">
+                            <i class="fas fa-expand"></i>
+                        </button>
+                        <div class="channel-info">
+                            <div class="live-indicator">
+                                <div class="live-dot"></div>
+                                EN VIVO
+                            </div>
+                            <div class="channel-title">TyC Sports</div>
+                            <div class="match-info">Canal 3 - Listo para URL</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 4 - Canal 4 -->
+                <div class="slide">
+                    <div class="slide-content">
+                        <iframe data-src="https://embed.ksdjugfsddeports.fun/embed2/tntsports.html" 
+                                width="100%" 
+                                height="100%" 
+                                scrolling="no" 
+                                frameborder="0" 
+                                allowfullscreen="true"
+                                style="border-radius: 8px;">
+                        </iframe>
+                        <button class="fullscreen-btn" onclick="toggleFullscreen(this)">
+                            <i class="fas fa-expand"></i>
+                        </button>
+                        <div class="channel-info">
+                            <div class="live-indicator">
+                                <div class="live-dot"></div>
+                                EN VIVO
+                            </div>
+                            <div class="channel-title">TNTsports</div>
+                            <div class="match-info">Canal 4 - Listo para URL</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 5 - Canal 5 -->
+                <div class="slide">
+                    <div class="slide-content">
+                        <iframe data-src="https://embed.ksdjugfsddeports.fun/embed2/espnpremium.html" 
+                                width="100%" 
+                                height="100%" 
+                                scrolling="no" 
+                                frameborder="0" 
+                                allowfullscreen="true"
+                                style="border-radius: 8px;">
+                        </iframe>
+                        <button class="fullscreen-btn" onclick="toggleFullscreen(this)">
+                            <i class="fas fa-expand"></i>
+                        </button>
+                        <div class="channel-info">
+                            <div class="live-indicator">
+                                <div class="live-dot"></div>
+                                EN VIVO
+                            </div>
+                            <div class="channel-title">ESPN premium</div>
+                            <div class="match-info">Canal 5 - Listo para URL</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Slide 6 - Canal 6 -->
+                <div class="slide">
+                    <div class="slide-content">
+                        <iframe data-src="https://embed.ksdjugfsddeports.fun/embed2/foxsportspremium.html"  
+                                width="100%" 
+                                height="100%" 
+                                scrolling="no" 
+                                frameborder="0" 
+                                allowfullscreen="true"
+                                style="border-radius: 8px;">
+                        </iframe>
+                        <button class="fullscreen-btn" onclick="toggleFullscreen(this)">
+                            <i class="fas fa-expand"></i>
+                        </button>
+                        <div class="channel-info">
+                            <div class="live-indicator">
+                                <div class="live-dot"></div>
+                                EN VIVO
+                            </div>
+                            <div class="channel-title">FOX sports premium</div>
+                            <div class="match-info">Canal 6 - Listo para URL</div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="iframe-wrapper">
-                <div class="loading-placeholder">
-                    <div class="loading-spinner"></div>
-                    Cargando contenido...
-                </div>
-                <!-- Reemplaza esta URL con tu contenido deseado -->
-                <iframe src="https://embed.ksdjugfsddeports.fun/embed2/directvsports.html" width="100%" height="100%"  scrolling="no" frameborder="0" allowfullscreen="true"></iframe>
-            </div>
-        </div>
 
-        <div class="description">
-            <p>🎮 Disfruta de la mejor experiencia gaming combinada con la pasión del fútbol. Conecta con otros jugadores, mira partidos en vivo y comparte tu amor por el deporte rey en nuestro cyber café virtual.</p>
-        </div>
+            <!-- Navigation Controls -->
+            <button class="slider-nav prev">‹</button>
+            <button class="slider-nav next">›</button>
+
+            <!-- Pagination Dots -->
+            <div class="pagination-dots">
+                <span class="dot active" data-slide="0"></span>
+                <span class="dot" data-slide="1"></span>
+                <span class="dot" data-slide="2"></span>
+                <span class="dot" data-slide="3"></span>
+                <span class="dot" data-slide="4"></span>
+                <span class="dot" data-slide="5"></span>
+            </div>
+        </section>
+
+        <!-- Channels Section -->
+        <section class="channels-section">
+            <h2 class="section-title">Canales Disponibles</h2>
+            <div class="channels-grid">
+                <div class="channel-card" data-channel="0">
+                    <div class="card-header">
+                        <div class="channel-logo">TUDN</div>
+                        <div class="channel-name">TUDN</div>
+                    </div>
+                    <div class="current-match">Deportes en vivo</div>
+                    <button class="watch-btn">
+                        <i class="fas fa-play"></i> Ver Ahora
+                    </button>
+                </div>
+
+                <div class="channel-card" data-channel="1">
+                    <div class="card-header">
+                        <div class="channel-logo">DTVS</div>
+                        <div class="channel-name">DirecTV Sports</div>
+                    </div>
+                    <div class="current-match">Manchester United vs Liverpool</div>
+                    <button class="watch-btn">
+                        <i class="fas fa-play"></i> Ver Ahora
+                    </button>
+                </div>
+
+                <div class="channel-card" data-channel="2">
+                    <div class="card-header">
+                        <div class="channel-logo">TyC</div>
+                        <div class="channel-name">TyC Sports</div>
+                    </div>
+                    <div class="current-match">Boca Juniors vs River Plate</div>
+                    <button class="watch-btn">
+                        <i class="fas fa-play"></i> Ver Ahora
+                    </button>
+                </div>
+
+                <div class="channel-card" data-channel="3">
+                    <div class="card-header">
+                        <div class="channel-logo">TNT</div>
+                        <div class="channel-name">TNT sports</div>
+                    </div>
+                    <div class="current-match">PSG vs Bayern Munich</div>
+                    <button class="watch-btn">
+                        <i class="fas fa-play"></i> Ver Ahora
+                    </button>
+                </div>
+
+                <div class="channel-card" data-channel="4">
+                    <div class="card-header">
+                        <div class="channel-logo">ESPN</div>
+                        <div class="channel-name">ESPN premium</div>
+                    </div>
+                    <div class="current-match">Canal 5 - Listo para URL</div>
+                    <button class="watch-btn">
+                        <i class="fas fa-play"></i> Ver Ahora
+                    </button>
+                </div>
+
+                <div class="channel-card" data-channel="5">
+                    <div class="card-header">
+                        <div class="channel-logo">FOX</div>
+                        <div class="channel-name">FOX sports premium</div>
+                    </div>
+                    <div class="current-match">Canal 6 - Listo para URL</div>
+                    <button class="watch-btn">
+                        <i class="fas fa-play"></i> Ver Ahora
+                    </button>
+                </div>
+            </div>
+        </section>
     </main>
 
+    <!-- Footer -->
     <footer class="footer">
-        <div class="footer-content">
-            <p>&copy; 2025 Cyber Café Fútbol. Powered by gamers.</p>
-            <div class="footer-links">
-                <a href="#" class="footer-link">Términos</a>
-                <a href="#" class="footer-link">Privacidad</a>
-                <a href="#" class="footer-link">Soporte</a>
-            </div>
-        </div>
+        <p>&copy; 2025 FútbolTV. Todos los derechos reservados.</p>
+        <p>Transmisiones deportivas en vivo • Español | English</p>
     </footer>
+
+    <script>
+        class ZappingSlider {
+            constructor() {
+                this.currentSlide = 0;
+                this.slides = document.querySelectorAll('.slide');
+                this.dots = document.querySelectorAll('.dot');
+                this.totalSlides = this.slides.length;
+                
+                this.init();
+            }
+
+            init() {
+                this.bindEvents();
+                // No autoplay - solo interacción manual
+                this.loadCurrentSlide();
+            }
+
+            bindEvents() {
+                // Navigation buttons
+                document.querySelector('.slider-nav.prev').addEventListener('click', () => {
+                    this.prevSlide();
+                });
+
+                document.querySelector('.slider-nav.next').addEventListener('click', () => {
+                    this.nextSlide();
+                });
+
+                // Pagination dots
+                this.dots.forEach((dot, index) => {
+                    dot.addEventListener('click', () => {
+                        this.goToSlide(index);
+                    });
+                });
+
+                // Channel cards
+                document.querySelectorAll('.channel-card').forEach((card, index) => {
+                    card.addEventListener('click', () => {
+                        if (index < this.totalSlides) {
+                            this.goToSlide(index);
+                        }
+                    });
+                });
+
+                // Touch/swipe support
+                let startX = 0;
+                let endX = 0;
+
+                const slider = document.querySelector('.zapping-slider');
+                slider.addEventListener('touchstart', (e) => {
+                    startX = e.touches[0].clientX;
+                });
+
+                slider.addEventListener('touchend', (e) => {
+                    endX = e.changedTouches[0].clientX;
+                    this.handleSwipe();
+                });
+            }
+
+            handleSwipe() {
+                const threshold = 50;
+                const diff = startX - endX;
+
+                if (Math.abs(diff) > threshold) {
+                    if (diff > 0) {
+                        this.nextSlide();
+                    } else {
+                        this.prevSlide();
+                    }
+                }
+            }
+
+            updateSlides() {
+                // Detener todos los streams primero
+                this.stopAllStreams();
+                
+                this.slides.forEach((slide, index) => {
+                    slide.classList.remove('active', 'prev');
+                    
+                    if (index === this.currentSlide) {
+                        slide.classList.add('active');
+                    } else if (index === this.currentSlide - 1 || 
+                              (this.currentSlide === 0 && index === this.totalSlides - 1)) {
+                        slide.classList.add('prev');
+                    }
+                });
+
+                this.dots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === this.currentSlide);
+                });
+
+                // Cargar solo el stream activo
+                this.loadCurrentSlide();
+            }
+
+            loadCurrentSlide() {
+                const activeSlide = this.slides[this.currentSlide];
+                const iframe = activeSlide.querySelector('iframe');
+                const dataSrc = iframe.getAttribute('data-src');
+                
+                if (dataSrc && dataSrc !== 'INSERTAR_URL_CANAL_2' && dataSrc !== 'INSERTAR_URL_CANAL_3' && dataSrc !== 'INSERTAR_URL_CANAL_4' && dataSrc !== 'INSERTAR_URL_CANAL_5' && dataSrc !== 'INSERTAR_URL_CANAL_6') {
+                    iframe.src = dataSrc;
+                }
+            }
+
+            stopAllStreams() {
+                this.slides.forEach(slide => {
+                    const iframe = slide.querySelector('iframe');
+                    if (iframe.src) {
+                        iframe.src = 'about:blank'; // Detener la transmisión
+                    }
+                });
+            }
+
+            nextSlide() {
+                this.currentSlide = (this.currentSlide + 1) % this.totalSlides;
+                this.updateSlides();
+                this.addSlideTransition();
+            }
+
+            prevSlide() {
+                this.currentSlide = (this.currentSlide - 1 + this.totalSlides) % this.totalSlides;
+                this.updateSlides();
+                this.addSlideTransition();
+            }
+
+            goToSlide(index) {
+                if (index !== this.currentSlide) {
+                    this.currentSlide = index;
+                    this.updateSlides();
+                    this.addSlideTransition();
+                }
+            }
+
+            addSlideTransition() {
+                const activeSlide = document.querySelector('.slide.active');
+                if (activeSlide) {
+                    activeSlide.style.animation = 'none';
+                    activeSlide.offsetHeight; // Trigger reflow
+                    activeSlide.style.animation = 'slideIn 0.5s ease-out';
+                }
+            }
+        }
+
+        // Función para pantalla completa
+        function toggleFullscreen(button) {
+            const slide = button.closest('.slide');
+            const iframe = slide.querySelector('iframe');
+            
+            if (iframe.requestFullscreen) {
+                iframe.requestFullscreen();
+            } else if (iframe.webkitRequestFullscreen) {
+                iframe.webkitRequestFullscreen();
+            } else if (iframe.msRequestFullscreen) {
+                iframe.msRequestFullscreen();
+            }
+        }
+
+        // Additional CSS for slide animation
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes slideIn {
+                0% {
+                    opacity: 0;
+                    transform: translateX(30px) scale(0.98);
+                }
+                100% {
+                    opacity: 1;
+                    transform: translateX(0) scale(1);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+
+        // Initialize slider when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            new ZappingSlider();
+
+            // Theme toggle functionality
+            const themeToggle = document.querySelector('.theme-toggle');
+            themeToggle.addEventListener('click', () => {
+                // For now, just add a visual feedback
+                themeToggle.style.transform = 'scale(0.95)';
+                setTimeout(() => {
+                    themeToggle.style.transform = 'scale(1)';
+                }, 150);
+            });
+
+            // Add subtle glow effect to active elements
+            document.querySelectorAll('.watch-btn, .slider-nav, .dot').forEach(element => {
+                element.addEventListener('mouseenter', function() {
+                    this.style.filter = 'brightness(1.2) drop-shadow(0 0 10px rgba(88, 166, 255, 0.5))';
+                });
+
+                element.addEventListener('mouseleave', function() {
+                    this.style.filter = 'none';
+                });
+            });
+        });
+    </script>
 </body>
 </html>
