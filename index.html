@@ -7,23 +7,24 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --primary-dark: #0d1117;
-            --secondary-dark: #161b22;
+            --primary-dark: #f8f9fa;
+            --secondary-dark: #e9ecef;
             --accent-red: #ff6b6b;
             --accent-blue: #58a6ff;
             --accent-purple: #5865f2;
-            --text-primary: #f0f6fc;
-            --text-secondary: #8b949e;
-            --border-color: rgba(240, 246, 252, 0.1);
-            --github-dark: #21262d;
-            --discord-dark: #2f3136;
-            --card-bg: rgba(54, 57, 63, 0.8);
+            --text-primary: #212529;
+            --text-secondary: #6c757d;
+            --border-color: rgba(27, 31, 36, 0.15);
+            --github-dark: #ffffff;
+            --discord-dark: #f6f8fa;
+            --card-bg: rgba(246, 248, 250, 0.8);
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
         }
 
         body {
@@ -33,6 +34,7 @@
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
+            touch-action: manipulation;
         }
 
         body::before {
@@ -48,14 +50,14 @@
 
         /* Header Mejorado */
         .header {
-            background: rgba(13, 17, 23, 0.95);
+            background: rgba(248, 249, 250, 0.95);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border-color);
             padding: 1rem 0;
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
         }
 
@@ -108,7 +110,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             animation: float 3s ease-in-out infinite;
             transition: all 0.3s ease;
         }
@@ -116,7 +118,7 @@
         .soccer-ball:hover {
             animation-play-state: paused;
             transform: rotate(360deg);
-            box-shadow: 0 6px 20px rgba(255, 255, 255, 0.4);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
         }
 
         .soccer-ball::before {
@@ -330,12 +332,12 @@
                 right: -100%;
                 height: 100vh;
                 width: 280px;
-                background: linear-gradient(135deg, var(--github-dark), var(--discord-dark));
+                background: linear-gradient(135deg, #f8f9fa, #e9ecef);
                 flex-direction: column;
                 align-items: stretch;
                 padding: 100px 20px 20px;
                 transition: right 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-                box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+                box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
                 z-index: 1000;
                 justify-content: flex-start;
                 gap: 0.5rem;
@@ -410,164 +412,6 @@
             }
         }
 
-        /* Light theme para el header */
-        .light-theme .header {
-            background: rgba(248, 249, 250, 0.95);
-            border-bottom: 1px solid rgba(27, 31, 36, 0.15);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-        }
-
-        .light-theme .nav-menu a:hover {
-            background: rgba(88, 166, 255, 0.1);
-        }
-
-        .light-theme .soccer-ball {
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Theme Selection Modal */
-        .theme-modal {
-            display: flex;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 2000;
-            align-items: center;
-            justify-content: center;
-            transition: opacity 0.4s ease, visibility 0.4s ease;
-            padding: 1rem;
-        }
-
-        .theme-modal.hidden {
-            opacity: 0;
-            visibility: hidden;
-        }
-
-        .modal-content {
-            background: var(--card-bg);
-            backdrop-filter: blur(20px);
-            border-radius: 16px;
-            padding: 3rem;
-            max-width: 500px;
-            width: 90%;
-            text-align: center;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 0 40px rgba(88, 166, 255, 0.3);
-            position: relative;
-            transform: translateY(-20px);
-            animation: modalAppear 0.5s ease-out forwards;
-        }
-        
-        @keyframes modalAppear {
-            0% {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .modal-content h2 {
-            margin-bottom: 1.5rem;
-            color: var(--text-primary);
-            background: linear-gradient(45deg, var(--accent-red), var(--accent-blue));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            font-size: 2rem;
-        }
-
-        .modal-content p {
-            color: var(--text-secondary);
-            margin-bottom: 2rem;
-            font-size: 1.1rem;
-        }
-
-        .theme-options {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-
-        .theme-option-btn {
-            padding: 1.5rem;
-            border-radius: 12px;
-            border: none;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 1rem;
-            font-weight: bold;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .theme-option-btn::before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(255, 255, 255, 0.1);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .theme-option-btn:hover::before {
-            opacity: 1;
-        }
-
-        .theme-option-btn.light {
-            background: linear-gradient(45deg, #ff9a9e, #fad0c4);
-            color: #333;
-            box-shadow: 0 5px 20px rgba(255, 154, 158, 0.4);
-        }
-
-        .theme-option-btn.dark {
-            background: linear-gradient(45deg, #4b6cb7, #182848);
-            color: white;
-            box-shadow: 0 5px 20px rgba(75, 108, 183, 0.4);
-        }
-
-        .theme-option-btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(88, 166, 255, 0.5);
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 1.5rem;
-            right: 1.5rem;
-            color: var(--text-secondary);
-            font-size: 1.8rem;
-            cursor: pointer;
-            transition: color 0.3s ease;
-            background: transparent;
-            border: none;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-        }
-
-        .close-modal:hover {
-            color: var(--accent-red);
-            background: rgba(255, 0, 0, 0.1);
-            transform: scale(1.1);
-        }
-
         /* Main Container */
         .main-container {
             max-width: 1200px;
@@ -628,6 +472,8 @@
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
+            cursor: pointer;
+            border: none;
         }
 
         .btn-primary {
@@ -694,7 +540,7 @@
         .slide-content {
             width: 100%;
             height: 100%;
-            background: linear-gradient(45deg, #1a1f29, #2d3748);
+            background: linear-gradient(45deg, #f0f2f5, #e4e7eb);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -735,7 +581,7 @@
             right: 1rem;
             background: rgba(0, 0, 0, 0.7);
             border: 1px solid var(--accent-blue);
-            color: var(--text-primary);
+            color: white;
             padding: 0.5rem;
             border-radius: 6px;
             cursor: pointer;
@@ -759,7 +605,7 @@
             right: 0;
             background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
             padding: 2rem 1rem 1rem;
-            color: var(--text-primary);
+            color: white;
         }
 
         .channel-title {
@@ -769,7 +615,7 @@
         }
 
         .match-info {
-            color: var(--text-secondary);
+            color: #f0f6fc;
             font-size: 1rem;
         }
 
@@ -1011,7 +857,7 @@
             overflow: hidden;
             min-height: 400px;
             position: relative;
-            background: rgba(13, 17, 23, 0.7);
+            background: rgba(255, 255, 255, 0.8);
             border: 1px solid var(--border-color);
         }
         
@@ -1030,7 +876,7 @@
         }
         
         .wg-match {
-            background: rgba(30, 35, 45, 0.9) !important;
+            background: rgba(240, 242, 245, 0.9) !important;
             border-bottom: 1px solid var(--border-color) !important;
             padding: 10px 15px !important;
             display: flex !important;
@@ -1190,7 +1036,7 @@
 
         .copyright {
             padding-top: 1.5rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-top: 1px solid rgba(0, 0, 0, 0.1);
         }
 
         /* Animations */
@@ -1324,15 +1170,6 @@
             .wg-match-team-logo {
                 margin: 5px 0;
             }
-            
-            /* Modal adjustments */
-            .modal-content {
-                padding: 2rem 1.5rem;
-            }
-            
-            .theme-option-btn {
-                padding: 1.2rem;
-            }
         }
 
         @media (max-width: 480px) {
@@ -1353,73 +1190,10 @@
                 height: 40px;
                 font-size: 1rem;
             }
-            
-            .modal-content {
-                padding: 1.5rem 1rem;
-            }
-            
-            .theme-option-btn {
-                font-size: 1rem;
-                padding: 1rem;
-            }
-        }
-        
-        /* Light theme general */
-        .light-theme {
-            --primary-dark: #ffffff;
-            --secondary-dark: #f8f9fa;
-            --text-primary: #24292f;
-            --text-secondary: #656d76;
-            --border-color: rgba(27, 31, 36, 0.15);
-            --github-dark: #ffffff;
-            --discord-dark: #f6f8fa;
-            --card-bg: rgba(246, 248, 250, 0.8);
-        }
-
-        .light-theme .channel-card {
-            background: rgba(246, 248, 250, 0.8);
-            color: #212529;
-        }
-        
-        .light-theme .agenda-section {
-            background: rgba(246, 248, 250, 0.8);
-            color: #212529;
-        }
-        
-        .light-theme .api_football_loader {
-            background: rgba(248, 249, 250, 0.8);
-            border: 1px solid rgba(108, 117, 125, 0.2);
-        }
-        
-        .light-theme .footer {
-            background: #f8f9fa;
-            color: #6c757d;
-        }
-        
-        .light-theme .channel-card .current-match,
-        .light-theme .channel-card .channel-name {
-            color: #495057;
         }
     </style>
 </head>
 <body>
-    <!-- Theme Selection Modal -->
-    <div id="theme-modal" class="theme-modal">
-        <div class="modal-content">
-            <button class="close-modal" id="close-modal">&times;</button>
-            <h2>Elige tu tema preferido</h2>
-            <p>Selecciona cómo quieres ver la web:</p>
-            <div class="theme-options">
-                <button id="light-theme-btn" class="theme-option-btn light">
-                    <i class="fas fa-sun"></i> Modo Claro
-                </button>
-                <button id="dark-theme-btn" class="theme-option-btn dark">
-                    <i class="fas fa-moon"></i> Modo Oscuro
-                </button>
-            </div>
-        </div>
-    </div>
-
     <!-- Header Mejorado -->
     <header class="header">
         <nav class="nav-container">
@@ -1926,53 +1700,15 @@
 
         // Initialize when DOM is loaded
         document.addEventListener('DOMContentLoaded', function() {
-            // Theme modal functionality
-            const themeModal = document.getElementById('theme-modal');
-            const lightThemeBtn = document.getElementById('light-theme-btn');
-            const darkThemeBtn = document.getElementById('dark-theme-btn');
-            const closeModalBtn = document.getElementById('close-modal');
+            // Theme toggle functionality
             const themeToggle = document.getElementById('theme-toggle');
             const themeText = document.querySelector('.theme-text');
             
-            // Check for saved theme preference
-            const savedTheme = localStorage.getItem('theme');
-            
-            // Hide modal if theme preference exists
-            if (savedTheme) {
-                themeModal.classList.add('hidden');
-                if (savedTheme === 'light') {
-                    document.body.classList.add('light-theme');
-                    themeToggle.innerHTML = '<i class="fas fa-moon"></i> <span class="theme-text">Modo Oscuro</span>';
-                } else {
-                    themeToggle.innerHTML = '<i class="fas fa-sun"></i> <span class="theme-text">Modo Claro</span>';
-                }
-            } else {
-                // Set default theme to light
-                document.body.classList.add('light-theme');
-                localStorage.setItem('theme', 'light');
-                themeToggle.innerHTML = '<i class="fas fa-moon"></i> <span class="theme-text">Modo Oscuro</span>';
-            }
-            
-            // Theme selection buttons
-            lightThemeBtn.addEventListener('click', function() {
-                document.body.classList.add('light-theme');
-                localStorage.setItem('theme', 'light');
-                themeModal.classList.add('hidden');
-                themeToggle.innerHTML = '<i class="fas fa-moon"></i> <span class="theme-text">Modo Oscuro</span>';
-            });
-            
-            darkThemeBtn.addEventListener('click', function() {
-                document.body.classList.remove('light-theme');
-                localStorage.setItem('theme', 'dark');
-                themeModal.classList.add('hidden');
-                themeToggle.innerHTML = '<i class="fas fa-sun"></i> <span class="theme-text">Modo Claro</span>';
-            });
-            
-            // Close modal button
-            closeModalBtn.addEventListener('click', function() {
-                themeModal.classList.add('hidden');
-            });
-            
+            // Set initial theme to light
+            document.body.classList.add('light-theme');
+            localStorage.setItem('theme', 'light');
+            themeToggle.innerHTML = '<i class="fas fa-moon"></i> <span class="theme-text">Modo Oscuro</span>';
+
             // Theme toggle in navbar
             themeToggle.addEventListener('click', function() {
                 document.body.classList.toggle('light-theme');
@@ -2015,8 +1751,8 @@
                     
                     // Cerrar menú móvil si está abierto
                     if(navMenu.classList.contains('active')) {
-                        navMenu.classList.remove('active');
                         hamburger.classList.remove('active');
+                        navMenu.classList.remove('active');
                         mobileOverlay.classList.remove('active');
                     }
                 });
