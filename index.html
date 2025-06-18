@@ -7,14 +7,16 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
         :root {
-            --github-dark: #0d1117;
-            --discord-dark: #36393f;
+            --primary-dark: #0d1117;
+            --secondary-dark: #161b22;
+            --accent-red: #ff6b6b;
             --accent-blue: #58a6ff;
-            --accent-purple: #5865F2;
-            --accent-red: #ff0000;
+            --accent-purple: #5865f2;
             --text-primary: #f0f6fc;
             --text-secondary: #8b949e;
-            --border-color: rgba(88, 166, 255, 0.3);
+            --border-color: rgba(240, 246, 252, 0.1);
+            --github-dark: #21262d;
+            --discord-dark: #2f3136;
             --card-bg: rgba(54, 57, 63, 0.8);
         }
 
@@ -25,9 +27,9 @@
         }
 
         body {
-            background: linear-gradient(135deg, #0d1117 0%, #1a1f29 50%, #0d1117 100%);
-            color: var(--text-primary);
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--secondary-dark) 100%);
+            color: var(--text-primary);
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
@@ -42,6 +44,385 @@
             height: 100%;
             background: radial-gradient(circle at center, rgba(88, 101, 242, 0.05) 0%, transparent 70%);
             z-index: -1;
+        }
+
+        /* Header Mejorado */
+        .header {
+            background: rgba(13, 17, 23, 0.95);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--accent-red), var(--accent-blue), var(--accent-purple));
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            0% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 2rem;
+            position: relative;
+        }
+
+        /* Logo mejorado con balón */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            text-decoration: none;
+            z-index: 1001;
+            transition: transform 0.3s ease;
+        }
+
+        .logo-container:hover {
+            transform: scale(1.05);
+        }
+
+        .soccer-ball {
+            width: 32px;
+            height: 32px;
+            background: #fff;
+            border-radius: 50%;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2);
+            animation: float 3s ease-in-out infinite;
+            transition: all 0.3s ease;
+        }
+
+        .soccer-ball:hover {
+            animation-play-state: paused;
+            transform: rotate(360deg);
+            box-shadow: 0 6px 20px rgba(255, 255, 255, 0.4);
+        }
+
+        .soccer-ball::before {
+            content: '⚽';
+            font-size: 24px;
+            animation: spin 8s linear infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .logo-text {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(45deg, var(--accent-red), var(--accent-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(88, 166, 255, 0.3);
+            letter-spacing: -0.5px;
+        }
+
+        /* Hamburger Menu Mejorado */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            background: transparent;
+            border: none;
+            width: 40px;
+            height: 40px;
+            position: relative;
+            z-index: 1001;
+            border-radius: 8px;
+            transition: background 0.3s ease;
+        }
+
+        .hamburger:hover {
+            background: rgba(88, 166, 255, 0.1);
+        }
+
+        .hamburger span {
+            display: block;
+            width: 25px;
+            height: 3px;
+            background: var(--accent-blue);
+            margin: 5px auto;
+            transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            border-radius: 2px;
+            box-shadow: 0 2px 5px rgba(88, 166, 255, 0.3);
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(6px, 6px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+            transform: translateX(20px);
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(6px, -6px);
+        }
+
+        /* Navigation Menu */
+        .nav-menu {
+            display: flex;
+            list-style: none;
+            gap: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-menu li {
+            position: relative;
+        }
+
+        .nav-menu a {
+            color: var(--text-primary);
+            text-decoration: none;
+            padding: 0.7rem 1.2rem;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-menu a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(88, 166, 255, 0.2), rgba(255, 107, 107, 0.2));
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .nav-menu a:hover::before {
+            left: 0;
+        }
+
+        .nav-menu a:hover {
+            box-shadow: 0 5px 20px rgba(88, 166, 255, 0.3);
+            transform: translateY(-2px);
+        }
+
+        .nav-menu a i {
+            transition: all 0.3s ease;
+            font-size: 1.1rem;
+        }
+
+        .nav-menu a:hover i {
+            transform: scale(1.2) rotate(5deg);
+            color: var(--accent-blue);
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            background: linear-gradient(135deg, var(--discord-dark), var(--github-dark));
+            border: 1px solid var(--border-color);
+            color: var(--text-primary);
+            padding: 0.7rem 1.2rem;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.6rem;
+            font-weight: 500;
+            margin-left: 1rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .theme-toggle::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--accent-purple), var(--accent-blue));
+            transition: left 0.3s ease;
+            z-index: -1;
+        }
+
+        .theme-toggle:hover::before {
+            left: 0;
+        }
+
+        .theme-toggle:hover {
+            box-shadow: 0 5px 20px rgba(88, 101, 242, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .theme-toggle i {
+            transition: transform 0.3s ease;
+        }
+
+        .theme-toggle:hover i {
+            transform: rotate(360deg);
+        }
+
+        /* Mobile Overlay */
+        .mobile-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .mobile-overlay.active {
+            opacity: 1;
+        }
+
+        /* Responsive Design para Header */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 0 1rem;
+            }
+
+            .hamburger {
+                display: block;
+            }
+
+            .mobile-overlay {
+                display: block;
+            }
+
+            .nav-menu {
+                position: fixed;
+                top: 0;
+                right: -100%;
+                height: 100vh;
+                width: 280px;
+                background: linear-gradient(135deg, var(--github-dark), var(--discord-dark));
+                flex-direction: column;
+                align-items: stretch;
+                padding: 100px 20px 20px;
+                transition: right 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+                box-shadow: -10px 0 30px rgba(0, 0, 0, 0.5);
+                z-index: 1000;
+                justify-content: flex-start;
+                gap: 0.5rem;
+                backdrop-filter: blur(20px);
+            }
+
+            .nav-menu.active {
+                right: 0;
+            }
+
+            .nav-menu a {
+                padding: 1rem 1.5rem;
+                border-radius: 12px;
+                margin-bottom: 0.5rem;
+                font-size: 1.1rem;
+                border: 1px solid transparent;
+                transition: all 0.3s ease;
+            }
+
+            .nav-menu a:hover {
+                border-color: var(--accent-blue);
+                background: rgba(88, 166, 255, 0.1);
+            }
+
+            .theme-toggle {
+                margin-left: 0;
+                margin-right: 10px;
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .logo-text {
+                font-size: 1.5rem;
+            }
+
+            .soccer-ball {
+                width: 28px;
+                height: 28px;
+            }
+
+            .soccer-ball::before {
+                font-size: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                padding: 0 0.8rem;
+            }
+
+            .logo-text {
+                font-size: 1.3rem;
+            }
+
+            .soccer-ball {
+                width: 24px;
+                height: 24px;
+            }
+
+            .soccer-ball::before {
+                font-size: 18px;
+            }
+
+            .nav-menu {
+                width: 260px;
+                padding: 90px 15px 15px;
+            }
+
+            .theme-toggle {
+                padding: 0.5rem 0.8rem;
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Light theme para el header */
+        .light-theme .header {
+            background: rgba(248, 249, 250, 0.95);
+            border-bottom: 1px solid rgba(27, 31, 36, 0.15);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .light-theme .nav-menu a:hover {
+            background: rgba(88, 166, 255, 0.1);
+        }
+
+        .light-theme .soccer-ball {
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
         }
 
         /* Theme Selection Modal */
@@ -185,121 +566,6 @@
             color: var(--accent-red);
             background: rgba(255, 0, 0, 0.1);
             transform: scale(1.1);
-        }
-
-        /* Header */
-        .header {
-            background: rgba(13, 17, 23, 0.95);
-            backdrop-filter: blur(20px);
-            border-bottom: 1px solid var(--border-color);
-            padding: 1rem 0;
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 0 2rem;
-            position: relative;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            background: linear-gradient(45deg, var(--accent-red), var(--accent-blue));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: transform 0.3s ease;
-            z-index: 1001;
-        }
-
-        .logo:hover {
-            transform: scale(1.05);
-        }
-
-        /* Hamburguer Menu */
-        .hamburger {
-            display: none;
-            cursor: pointer;
-            background: transparent;
-            border: none;
-            width: 40px;
-            height: 40px;
-            position: relative;
-            z-index: 1001;
-        }
-
-        .hamburger span {
-            display: block;
-            width: 25px;
-            height: 3px;
-            background: var(--accent-blue);
-            margin: 5px auto;
-            transition: all 0.3s ease-in-out;
-            border-radius: 2px;
-        }
-
-        .nav-menu {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-            transition: all 0.3s ease;
-        }
-
-        .nav-menu a {
-            color: var(--text-primary);
-            text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 6px;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-weight: 500;
-        }
-
-        .nav-menu a:hover {
-            background: rgba(88, 166, 255, 0.2);
-            box-shadow: 0 0 15px rgba(88, 166, 255, 0.3);
-        }
-
-        .nav-menu a i {
-            transition: transform 0.3s ease;
-        }
-
-        .nav-menu a:hover i {
-            transform: scale(1.2);
-        }
-
-        .theme-toggle {
-            background: var(--discord-dark);
-            border: 1px solid var(--border-color);
-            color: var(--text-primary);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            font-weight: 500;
-            margin-left: 1rem;
-        }
-
-        .theme-toggle:hover {
-            background: var(--accent-purple);
-            box-shadow: 0 0 15px rgba(88, 101, 242, 0.4);
         }
 
         /* Main Container */
@@ -974,7 +1240,7 @@
             margin-bottom: 1rem;
         }
 
-        /* Responsive Design */
+        /* Responsive Design para contenido */
         @media (max-width: 992px) {
             .hero h1 {
                 font-size: 2.8rem;
@@ -990,41 +1256,6 @@
         }
 
         @media (max-width: 768px) {
-            .nav-container {
-                padding: 0 1rem;
-            }
-
-            .hamburger {
-                display: block;
-            }
-
-            .nav-menu {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                height: 100vh;
-                width: 70%;
-                max-width: 300px;
-                background: var(--github-dark);
-                flex-direction: column;
-                align-items: center;
-                padding: 80px 20px 20px;
-                transition: right 0.3s ease;
-                box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
-                z-index: 1000;
-                justify-content: flex-start;
-                gap: 1rem;
-            }
-
-            .nav-menu.active {
-                right: 0;
-            }
-
-            .theme-toggle {
-                margin-left: auto;
-                margin-right: 10px;
-            }
-
             .main-container {
                 padding: 1rem;
             }
@@ -1061,10 +1292,6 @@
                 grid-template-columns: 1fr;
             }
 
-            .logo {
-                font-size: 1.5rem;
-            }
-            
             /* Mobile adjustments for widget */
             .wg-match {
                 flex-direction: column !important;
@@ -1137,32 +1364,25 @@
             }
         }
         
-        /* Light theme */
+        /* Light theme general */
         .light-theme {
-            --github-dark: #f8f9fa;
-            --discord-dark: #e9ecef;
-            --text-primary: #212529;
-            --text-secondary: #6c757d;
-            --card-bg: rgba(233, 236, 239, 0.8);
-            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #f8f9fa 100%);
+            --primary-dark: #ffffff;
+            --secondary-dark: #f8f9fa;
+            --text-primary: #24292f;
+            --text-secondary: #656d76;
+            --border-color: rgba(27, 31, 36, 0.15);
+            --github-dark: #ffffff;
+            --discord-dark: #f6f8fa;
+            --card-bg: rgba(246, 248, 250, 0.8);
         }
-        
-        .light-theme .header {
-            background: rgba(248, 249, 250, 0.95);
-            border-bottom: 1px solid rgba(108, 117, 125, 0.2);
-        }
-        
-        .light-theme .nav-menu a:hover {
-            background: rgba(88, 166, 255, 0.1);
-        }
-        
+
         .light-theme .channel-card {
-            background: rgba(233, 236, 239, 0.8);
+            background: rgba(246, 248, 250, 0.8);
             color: #212529;
         }
         
         .light-theme .agenda-section {
-            background: rgba(233, 236, 239, 0.8);
+            background: rgba(246, 248, 250, 0.8);
             color: #212529;
         }
         
@@ -1200,10 +1420,13 @@
         </div>
     </div>
 
-    <!-- Header -->
+    <!-- Header Mejorado -->
     <header class="header">
         <nav class="nav-container">
-            <a href="#" class="logo"><i class="fas fa-futbol"></i> CYBERCAFE F.C.</a>
+            <a href="#" class="logo-container">
+                <div class="soccer-ball"></div>
+                <span class="logo-text">CYBERCAFE F.C.</span>
+            </a>
             
             <button class="hamburger" id="hamburger">
                 <span></span>
@@ -1220,10 +1443,13 @@
             </ul>
             
             <button class="theme-toggle" id="theme-toggle">
-                <i class="fas fa-moon"></i> Modo Oscuro
+                <i class="fas fa-moon"></i> <span class="theme-text">Modo Oscuro</span>
             </button>
         </nav>
     </header>
+
+    <!-- Mobile Overlay -->
+    <div class="mobile-overlay" id="mobile-overlay"></div>
 
     <!-- Main Content -->
     <main class="main-container">
@@ -1706,6 +1932,7 @@
             const darkThemeBtn = document.getElementById('dark-theme-btn');
             const closeModalBtn = document.getElementById('close-modal');
             const themeToggle = document.getElementById('theme-toggle');
+            const themeText = document.querySelector('.theme-text');
             
             // Check for saved theme preference
             const savedTheme = localStorage.getItem('theme');
@@ -1715,15 +1942,15 @@
                 themeModal.classList.add('hidden');
                 if (savedTheme === 'light') {
                     document.body.classList.add('light-theme');
-                    themeToggle.innerHTML = '<i class="fas fa-moon"></i> Modo Oscuro';
+                    themeToggle.innerHTML = '<i class="fas fa-moon"></i> <span class="theme-text">Modo Oscuro</span>';
                 } else {
-                    themeToggle.innerHTML = '<i class="fas fa-sun"></i> Modo Claro';
+                    themeToggle.innerHTML = '<i class="fas fa-sun"></i> <span class="theme-text">Modo Claro</span>';
                 }
             } else {
                 // Set default theme to light
                 document.body.classList.add('light-theme');
                 localStorage.setItem('theme', 'light');
-                themeToggle.innerHTML = '<i class="fas fa-moon"></i> Modo Oscuro';
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i> <span class="theme-text">Modo Oscuro</span>';
             }
             
             // Theme selection buttons
@@ -1731,14 +1958,14 @@
                 document.body.classList.add('light-theme');
                 localStorage.setItem('theme', 'light');
                 themeModal.classList.add('hidden');
-                themeToggle.innerHTML = '<i class="fas fa-moon"></i> Modo Oscuro';
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i> <span class="theme-text">Modo Oscuro</span>';
             });
             
             darkThemeBtn.addEventListener('click', function() {
                 document.body.classList.remove('light-theme');
                 localStorage.setItem('theme', 'dark');
                 themeModal.classList.add('hidden');
-                themeToggle.innerHTML = '<i class="fas fa-sun"></i> Modo Claro';
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i> <span class="theme-text">Modo Claro</span>';
             });
             
             // Close modal button
@@ -1751,10 +1978,10 @@
                 document.body.classList.toggle('light-theme');
                 if (document.body.classList.contains('light-theme')) {
                     localStorage.setItem('theme', 'light');
-                    this.innerHTML = '<i class="fas fa-moon"></i> Modo Oscuro';
+                    this.innerHTML = '<i class="fas fa-moon"></i> <span class="theme-text">Modo Oscuro</span>';
                 } else {
                     localStorage.setItem('theme', 'dark');
-                    this.innerHTML = '<i class="fas fa-sun"></i> Modo Claro';
+                    this.innerHTML = '<i class="fas fa-sun"></i> <span class="theme-text">Modo Claro</span>';
                 }
             });
 
@@ -1790,6 +2017,7 @@
                     if(navMenu.classList.contains('active')) {
                         navMenu.classList.remove('active');
                         hamburger.classList.remove('active');
+                        mobileOverlay.classList.remove('active');
                     }
                 });
             });
@@ -1797,19 +2025,30 @@
             // Hamburger menu functionality
             const hamburger = document.getElementById('hamburger');
             const navMenu = document.getElementById('nav-menu');
+            const mobileOverlay = document.getElementById('mobile-overlay');
             
             hamburger.addEventListener('click', () => {
-                navMenu.classList.toggle('active');
                 hamburger.classList.toggle('active');
+                navMenu.classList.toggle('active');
+                mobileOverlay.classList.toggle('active');
             });
             
-            // Close menu when clicking outside
-            document.addEventListener('click', (e) => {
-                if (!navMenu.contains(e.target) && !hamburger.contains(e.target) && 
-                    navMenu.classList.contains('active')) {
-                    navMenu.classList.remove('active');
-                    hamburger.classList.remove('active');
-                }
+            // Close menu when clicking overlay
+            mobileOverlay.addEventListener('click', () => {
+                hamburger.classList.remove('active');
+                navMenu.classList.remove('active');
+                mobileOverlay.classList.remove('active');
+            });
+
+            // Close menu when clicking a link (mobile)
+            document.querySelectorAll('.nav-menu a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth <= 768) {
+                        hamburger.classList.remove('active');
+                        navMenu.classList.remove('active');
+                        mobileOverlay.classList.remove('active');
+                    }
+                });
             });
         });
 
