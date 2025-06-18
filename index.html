@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>CYBERCAFE F.C. - Transmisiones Deportivas</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
@@ -192,10 +192,6 @@
             transition: background 0.3s ease;
         }
 
-        .hamburger:hover {
-            background: rgba(88, 166, 255, 0.1);
-        }
-
         .hamburger span {
             display: block;
             width: 25px;
@@ -324,9 +320,73 @@
             transform: rotate(360deg);
         }
 
+        /* Mobile Menu */
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            right: -100%;
+            height: 100vh;
+            width: 280px;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            flex-direction: column;
+            align-items: stretch;
+            padding: 80px 20px 20px;
+            transition: right 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            justify-content: flex-start;
+            gap: 0.5rem;
+            backdrop-filter: blur(20px);
+            overflow-y: auto;
+        }
+
+        .dark-theme .mobile-menu {
+            background: linear-gradient(135deg, #0d1117, #161b22);
+        }
+
+        .mobile-menu.active {
+            right: 0;
+        }
+
+        .mobile-menu .nav-menu {
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .mobile-menu .nav-menu a {
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            border: 1px solid transparent;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu .nav-menu a:hover {
+            border-color: var(--accent-blue);
+            background: rgba(88, 166, 255, 0.1);
+        }
+
+        .mobile-menu .theme-toggle {
+            margin: 1rem 0 0;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .close-menu {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: transparent;
+            border: none;
+            color: var(--accent-red);
+            font-size: 1.5rem;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
         /* Mobile Overlay */
         .mobile-overlay {
-            display: none;
             position: fixed;
             top: 0;
             left: 0;
@@ -335,11 +395,13 @@
             background: rgba(0, 0, 0, 0.5);
             z-index: 999;
             opacity: 0;
-            transition: opacity 0.3s ease;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
         }
 
         .mobile-overlay.active {
             opacity: 1;
+            visibility: visible;
         }
 
         /* Responsive Design para Header */
@@ -352,51 +414,11 @@
                 display: block;
             }
 
-            .mobile-overlay {
-                display: block;
+            .nav-menu:not(.mobile-menu .nav-menu) {
+                display: none;
             }
 
-            .nav-menu {
-                position: fixed;
-                top: 0;
-                right: -100%;
-                height: 100vh;
-                width: 280px;
-                background: linear-gradient(135deg, #f8f9fa, #e9ecef);
-                flex-direction: column;
-                align-items: stretch;
-                padding: 100px 20px 20px;
-                transition: right 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-                box-shadow: -10px 0 30px rgba(0, 0, 0, 0.1);
-                z-index: 1000;
-                justify-content: flex-start;
-                gap: 0.5rem;
-                backdrop-filter: blur(20px);
-            }
-
-            .dark-theme .nav-menu {
-                background: linear-gradient(135deg, #0d1117, #161b22);
-            }
-
-            .nav-menu.active {
-                right: 0;
-            }
-
-            .nav-menu a {
-                padding: 1rem 1.5rem;
-                border-radius: 12px;
-                margin-bottom: 0.5rem;
-                font-size: 1.1rem;
-                border: 1px solid transparent;
-                transition: all 0.3s ease;
-            }
-
-            .nav-menu a:hover {
-                border-color: var(--accent-blue);
-                background: rgba(88, 166, 255, 0.1);
-            }
-
-            .theme-toggle {
+            .theme-toggle:not(.mobile-menu .theme-toggle) {
                 margin-left: 0;
                 margin-right: 10px;
                 padding: 0.6rem 1rem;
@@ -435,14 +457,9 @@
                 font-size: 18px;
             }
 
-            .nav-menu {
+            .mobile-menu {
                 width: 260px;
-                padding: 90px 15px 15px;
-            }
-
-            .theme-toggle {
-                padding: 0.5rem 0.8rem;
-                font-size: 0.8rem;
+                padding: 70px 15px 15px;
             }
         }
 
@@ -545,7 +562,7 @@
             box-shadow: 0 8px 20px rgba(76, 175, 80, 0.4);
         }
 
-        /* Zapping Slider */
+        /* Zapping Slider - CORREGIDO */
         .zapping-slider {
             position: relative;
             width: 100%;
@@ -557,6 +574,8 @@
             box-shadow: 0 0 30px rgba(88, 101, 242, 0.2);
             margin-bottom: 3rem;
             background: var(--discord-dark);
+            display: flex;
+            flex-direction: column;
         }
 
         .dark-theme .zapping-slider {
@@ -569,6 +588,7 @@
             width: 100%;
             height: 100%;
             overflow: hidden;
+            flex-grow: 1;
         }
 
         .slide {
@@ -578,6 +598,9 @@
             opacity: 0;
             transition: opacity 0.5s ease-in-out, transform 0.5s ease;
             transform: translateX(100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .slide.active {
@@ -590,13 +613,15 @@
         }
 
         .slide-content {
-            width: 100%;
-            height: 100%;
+            width: 95%;
+            height: 95%;
             background: linear-gradient(45deg, #f0f2f5, #e4e7eb);
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
+            border-radius: 8px;
+            overflow: hidden;
         }
 
         .dark-theme .slide-content {
@@ -607,27 +632,7 @@
             width: 100%;
             height: 100%;
             border: none;
-            border-radius: 8px;
             background: rgba(0, 0, 0, 0.9);
-        }
-
-        .stream-placeholder {
-            width: 90%;
-            height: 80%;
-            background: rgba(0, 0, 0, 0.8);
-            border-radius: 8px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid var(--accent-red);
-        }
-
-        .stream-placeholder i {
-            font-size: 4rem;
-            color: var(--accent-red);
-            margin-bottom: 1rem;
-            animation: pulse 2s infinite;
         }
 
         /* Fullscreen button */
@@ -887,7 +892,7 @@
             box-shadow: 0 5px 15px rgba(255, 0, 0, 0.4);
         }
         
-        /* Agenda Section - AllSportsApi Widget */
+        /* Agenda Section - Widget SoccerAPI */
         .agenda-section {
             background: var(--card-bg);
             backdrop-filter: blur(10px);
@@ -914,116 +919,18 @@
             z-index: -1;
         }
         
-        /* Custom styles for AllSportsApi widget */
-        .api_football_loader {
+        .soccerapi-widget {
             width: 100%;
+            height: 600px;
             border-radius: 8px;
             overflow: hidden;
-            min-height: 400px;
-            position: relative;
-            background: rgba(255, 255, 255, 0.8);
+            background: white;
             border: 1px solid var(--border-color);
         }
         
-        .dark-theme .api_football_loader {
+        .dark-theme .soccerapi-widget {
             background: rgba(30, 31, 41, 0.8);
             border-color: rgba(240, 246, 252, 0.1);
-        }
-        
-        .wg-container {
-            width: 100% !important;
-            background: transparent !important;
-            border: none !important;
-        }
-        
-        .wg-container-header {
-            background: linear-gradient(45deg, var(--accent-red), var(--accent-purple)) !important;
-            border-radius: 8px 8px 0 0 !important;
-            padding: 10px 15px !important;
-            font-weight: bold !important;
-            font-size: 1.2rem !important;
-        }
-        
-        .wg-match {
-            background: rgba(240, 242, 245, 0.9) !important;
-            border-bottom: 1px solid var(--border-color) !important;
-            padding: 10px 15px !important;
-            display: flex !important;
-            align-items: center !important;
-            transition: all 0.3s ease;
-        }
-        
-        .dark-theme .wg-match {
-            background: rgba(30, 31, 41, 0.9) !important;
-            border-color: rgba(240, 246, 252, 0.1) !important;
-        }
-        
-        .wg-match:hover {
-            background: rgba(88, 166, 255, 0.1) !important;
-            transform: translateX(5px);
-        }
-        
-        .wg-match-container {
-            display: flex !important;
-            width: 100% !important;
-        }
-        
-        .wg-match-details {
-            flex-grow: 1 !important;
-        }
-        
-        .wg-match-time {
-            color: var(--accent-blue) !important;
-            font-weight: bold !important;
-            min-width: 70px !important;
-            text-align: center !important;
-        }
-        
-        .wg-match-status {
-            color: var(--accent-red) !important;
-            font-weight: bold !important;
-            min-width: 100px !important;
-            text-align: center !important;
-        }
-        
-        .wg-match-teams {
-            display: flex !important;
-            flex-direction: column !important;
-            gap: 10px !important;
-            flex-grow: 1 !important;
-        }
-        
-        .wg-match-team {
-            display: flex !important;
-            align-items: center !important;
-            justify-content: space-between !important;
-        }
-        
-        .wg-match-team-name {
-            color: var(--text-primary) !important;
-            font-size: 1.1rem !important;
-        }
-        
-        .wg-match-team-logo {
-            width: 30px !important;
-            height: 30px !important;
-            margin: 0 10px !important;
-        }
-        
-        .wg-match-score-container {
-            display: flex !important;
-            align-items: center !important;
-            min-width: 70px !important;
-            justify-content: center !important;
-        }
-        
-        .wg-match-score {
-            color: var(--text-primary) !important;
-            font-weight: bold !important;
-            font-size: 1.1rem !important;
-            background: rgba(88, 166, 255, 0.2) !important;
-            padding: 3px 15px !important;
-            border-radius: 15px !important;
         }
 
         /* Footer */
@@ -1132,145 +1039,138 @@
             50% { opacity: 0; }
         }
 
-        /* Loading spinner */
-        .spinner {
-            border: 4px solid rgba(0, 0, 0, 0.1);
-            border-left-color: var(--accent-blue);
-            border-radius: 50%;
-            width: 50px;
-            height: 50px;
-            animation: spin 1s linear infinite;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            display: none;
-        }
-        
-        @keyframes spin {
-            to { transform: translate(-50%, -50%) rotate(360deg); }
-        }
-        
-        .no-matches {
-            text-align: center;
-            padding: 2rem;
-            color: var(--text-secondary);
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100%;
-        }
-        
-        .no-matches i {
-            font-size: 3rem;
-            color: var(--accent-red);
-            margin-bottom: 1rem;
-        }
-
-        /* Responsive Design para contenido */
-        @media (max-width: 992px) {
-            .hero h1 {
-                font-size: 2.8rem;
+        /* Nuevas animaciones */
+        @keyframes slideIn {
+            0% {
+                opacity: 0;
+                transform: translateX(30px) scale(0.98);
             }
-            
-            .zapping-slider {
-                height: 50vh;
-            }
-            
-            .channels-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            100% {
+                opacity: 1;
+                transform: translateX(0) scale(1);
             }
         }
-
+        
+        /* MEJORAS RESPONSIVE */
+        /* Scroll padding para secciones */
+        html {
+            scroll-padding-top: 80px;
+        }
+        
         @media (max-width: 768px) {
-            .main-container {
-                padding: 1rem;
+            html {
+                scroll-padding-top: 60px;
             }
-
-            .hero {
-                padding: 2rem 0;
-            }
-            
+        }
+        
+        /* Aumentar área táctil */
+        .nav-menu a, .theme-toggle, .btn {
+            touch-action: manipulation;
+        }
+        
+        /* Feedback visual para toques */
+        .channel-card:active, .btn:active {
+            transform: scale(0.98) !important;
+            transition: transform 0.1s ease;
+        }
+        
+        /* Prevenir zoom en inputs */
+        input, select, textarea {
+            font-size: 16px !important;
+        }
+        
+        /* Ajustes específicos para móviles */
+        @media (max-width: 480px) {
             .hero h1 {
-                font-size: 2.2rem;
+                font-size: 1.8rem !important;
+                line-height: 1.2;
             }
             
             .hero p {
-                font-size: 1rem;
+                font-size: 1rem !important;
+                padding: 0 1rem;
+            }
+            
+            /* Botones más grandes para móviles */
+            .btn {
+                padding: 1rem 1.5rem !important;
+                min-width: 85% !important;
+                margin: 0.5rem 0 !important;
+                font-size: 1.1rem !important;
+            }
+            
+            /* Aumentar área táctil de controles */
+            .slider-nav {
+                width: 45px !important;
+                height: 45px !important;
+                font-size: 1.8rem !important;
+            }
+            
+            .fullscreen-btn {
+                padding: 0.8rem 1rem !important;
+                font-size: 1.1rem !important;
+            }
+            
+            /* Mejorar tarjetas de canales */
+            .channel-card {
+                padding: 1.2rem !important;
+            }
+            
+            .watch-btn {
+                padding: 1rem !important;
+                font-size: 1.1rem !important;
+            }
+            
+            .main-container {
+                padding: 1rem !important;
+            }
+            
+            .soccerapi-widget {
+                height: 500px;
+            }
+            
+            /* Ajustes slider en móviles */
+            .zapping-slider {
+                height: 40vh;
+                min-height: 300px;
+            }
+            
+            .slide-content {
+                width: 97%;
+                height: 97%;
+            }
+        }
+        
+        /* Ajustes para tablets */
+        @media (max-width: 768px) {
+            .zapping-slider {
+                height: 50vh;
+                min-height: 300px;
             }
             
             .hero-buttons {
                 flex-direction: column;
                 align-items: center;
             }
-
-            .zapping-slider {
-                height: 40vh;
-                min-height: 300px;
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
             }
-
-            .slider-nav {
-                width: 40px;
-                height: 40px;
-                font-size: 1.5rem;
-            }
-
+            
             .channels-grid {
-                grid-template-columns: 1fr;
-            }
-
-            /* Mobile adjustments for widget */
-            .wg-match {
-                flex-direction: column !important;
-                padding: 10px !important;
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             }
             
-            .wg-match-details {
-                order: 2;
-                width: 100% !important;
-                margin-top: 10px;
-            }
-            
-            .wg-match-score-container {
-                order: 1;
-                width: 100% !important;
-                justify-content: center !important;
-                margin-bottom: 10px;
-            }
-            
-            .wg-match-time {
-                margin: 0 10px !important;
-            }
-            
-            .wg-match-team {
-                flex-direction: column;
-                align-items: center;
-                text-align: center;
-            }
-            
-            .wg-match-team-logo {
-                margin: 5px 0;
+            .soccerapi-widget {
+                height: 450px;
             }
         }
-
-        @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 1.8rem;
-            }
-            
-            .section-title {
-                font-size: 1.5rem;
-            }
-            
-            .channel-name {
-                font-size: 1rem;
-            }
-            
-            .channel-logo {
-                width: 40px;
-                height: 40px;
-                font-size: 1rem;
+        
+        /* Ajustes para escritorio */
+        @media (min-width: 992px) {
+            .channels-grid {
+                grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             }
         }
     </style>
@@ -1290,7 +1190,7 @@
                 <span></span>
             </button>
             
-            <ul class="nav-menu" id="nav-menu">
+            <ul class="nav-menu">
                 <li><a href="#"><i class="fas fa-home"></i> Inicio</a></li>
                 <li><a href="#canales"><i class="fas fa-tv"></i> Canales</a></li>
                 <li><a href="#"><i class="fas fa-heart"></i> Favoritos</a></li>
@@ -1304,8 +1204,26 @@
         </nav>
     </header>
 
-    <!-- Mobile Overlay -->
+    <!-- Mobile Menu -->
     <div class="mobile-overlay" id="mobile-overlay"></div>
+    
+    <div class="mobile-menu" id="mobile-menu">
+        <button class="close-menu" id="close-menu">
+            <i class="fas fa-times"></i>
+        </button>
+        
+        <ul class="nav-menu">
+            <li><a href="#"><i class="fas fa-home"></i> Inicio</a></li>
+            <li><a href="#canales"><i class="fas fa-tv"></i> Canales</a></li>
+            <li><a href="#"><i class="fas fa-heart"></i> Favoritos</a></li>
+            <li><a href="#partidos"><i class="fas fa-futbol"></i> Partidos</a></li>
+            <li><a href="#contact"><i class="fas fa-envelope"></i> Contacto</a></li>
+        </ul>
+        
+        <button class="theme-toggle" id="mobile-theme-toggle">
+            <i class="fas fa-moon"></i> <span class="theme-text">Modo Oscuro</span>
+        </button>
+    </div>
 
     <!-- Main Content -->
     <main class="main-container">
@@ -1320,19 +1238,18 @@
                 <a href="#partidos" class="btn btn-secondary">
                     <i class="fas fa-calendar-alt"></i> Agenda de Partidos
                 </a>
-                <!-- Botón PROMIEDOS agregado -->
                 <a href="https://www.promiedos.com.ar/" target="_blank" class="btn btn-promiedos">
                     <i class="fas fa-futbol"></i> PROMIEDOS
                 </a>
             </div>
         </section>
 
-        <!-- Zapping Slider -->
+        <!-- Zapping Slider - Corregido -->
         <section class="zapping-slider" id="main-slider">
             <div class="slides-container">
                 <!-- Slides will be generated dynamically by JavaScript -->
             </div>
-
+            
             <!-- Navigation Controls -->
             <button class="slider-nav prev">‹</button>
             <button class="slider-nav next">›</button>
@@ -1351,24 +1268,12 @@
             </div>
         </section>
         
-        <!-- Sección de Agenda de Partidos movida debajo de canales -->
+        <!-- Sección de Agenda de Partidos con el nuevo widget -->
         <section class="agenda-section" id="partidos">
             <h2 class="section-title"><i class="fas fa-calendar-alt"></i> Partidos en Vivo</h2>
-            <div id="wg-api-football-livescore"
-                 data-host="v3.football.api-sports.io"
-                 data-refresh="15"
-                 data-key="1d6903cc5dab2bfe304e22035b2aa166de2e6f9f0cd0df9ecf8ec4f1b8158436"
-                 data-theme="dark"
-                 data-show-errors="true"
-                 class="api_football_loader">
-                <!-- Loading spinner -->
-                <div class="spinner" id="widget-spinner"></div>
-                <!-- Mensaje si no hay partidos -->
-                <div class="no-matches" id="no-matches" style="display: none;">
-                    <i class="fas fa-futbol"></i>
-                    <h3>No hay partidos en vivo en este momento</h3>
-                    <p>Próximos partidos se mostrarán aquí cuando comiencen</p>
-                </div>
+            <div class="soccerapi-widget">
+                <!-- Widget SoccerAPI -->
+                <div id="ls-widget" data-w="w_default" class="livescore-widget"></div>
             </div>
         </section>
     </main>
@@ -1506,7 +1411,7 @@
             }
         ];
 
-        // Clase para el slider
+        // Clase para el slider - CORREGIDA
         class ZappingSlider {
             constructor() {
                 this.currentSlide = 0;
@@ -1514,6 +1419,7 @@
                 this.dotsContainer = document.querySelector('.pagination-dots');
                 this.channelsGrid = document.getElementById('channels-grid');
                 this.totalSlides = channels.length;
+                this.slider = document.getElementById('main-slider');
                 
                 // Generar slides y puntos de paginación
                 this.generateSlides();
@@ -1529,6 +1435,22 @@
             init() {
                 this.bindEvents();
                 this.loadCurrentSlide();
+                
+                // Redimensionar al cambiar tamaño de ventana
+                window.addEventListener('resize', this.handleResize.bind(this));
+                this.handleResize();
+            }
+            
+            handleResize() {
+                // Ajustar altura del slider
+                const aspectRatio = 16/9;
+                const newHeight = window.innerWidth / aspectRatio;
+                
+                if (window.innerWidth < 768) {
+                    this.slider.style.height = `${Math.min(newHeight, window.innerHeight * 0.4)}px`;
+                } else {
+                    this.slider.style.height = '60vh';
+                }
             }
 
             generateSlides() {
@@ -1685,9 +1607,6 @@
             }
 
             updateSlides() {
-                // Detener todos los streams primero
-                this.stopAllStreams();
-                
                 this.slides.forEach((slide, index) => {
                     slide.classList.remove('active', 'prev');
                     
@@ -1715,15 +1634,6 @@
                 if (dataSrc) {
                     iframe.src = dataSrc;
                 }
-            }
-
-            stopAllStreams() {
-                this.slides.forEach(slide => {
-                    const iframe = slide.querySelector('iframe');
-                    if (iframe.src) {
-                        iframe.src = 'about:blank';
-                    }
-                });
             }
 
             nextSlide() {
@@ -1774,8 +1684,9 @@
         function smoothScrollTo(elementId, offset = 100) {
             const element = document.getElementById(elementId);
             if (element) {
+                const headerHeight = document.querySelector('.header').offsetHeight;
                 const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
-                const offsetPosition = elementPosition - offset;
+                const offsetPosition = elementPosition - headerHeight - offset;
 
                 window.scrollTo({
                     top: offsetPosition,
@@ -1788,30 +1699,39 @@
         document.addEventListener('DOMContentLoaded', function() {
             // Theme toggle functionality
             const themeToggle = document.getElementById('theme-toggle');
-            const themeText = document.querySelector('.theme-text');
+            const mobileThemeToggle = document.getElementById('mobile-theme-toggle');
+            
+            // Verificar tema guardado y preferencias del sistema
             const savedTheme = localStorage.getItem('theme');
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
             
             // Set initial theme
-            if (savedTheme === 'dark') {
+            if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
                 document.body.classList.add('dark-theme');
                 themeToggle.innerHTML = '<i class="fas fa-sun"></i> <span class="theme-text">Modo Claro</span>';
+                mobileThemeToggle.innerHTML = '<i class="fas fa-sun"></i> <span class="theme-text">Modo Claro</span>';
             } else {
-                document.body.classList.add('light-theme');
                 themeToggle.innerHTML = '<i class="fas fa-moon"></i> <span class="theme-text">Modo Oscuro</span>';
+                mobileThemeToggle.innerHTML = '<i class="fas fa-moon"></i> <span class="theme-text">Modo Oscuro</span>';
             }
 
             // Theme toggle in navbar
-            themeToggle.addEventListener('click', function() {
+            const toggleTheme = () => {
                 document.body.classList.toggle('dark-theme');
                 
                 if (document.body.classList.contains('dark-theme')) {
                     localStorage.setItem('theme', 'dark');
-                    this.innerHTML = '<i class="fas fa-sun"></i> <span class="theme-text">Modo Claro</span>';
+                    themeToggle.innerHTML = '<i class="fas fa-sun"></i> <span class="theme-text">Modo Claro</span>';
+                    mobileThemeToggle.innerHTML = '<i class="fas fa-sun"></i> <span class="theme-text">Modo Claro</span>';
                 } else {
                     localStorage.setItem('theme', 'light');
-                    this.innerHTML = '<i class="fas fa-moon"></i> <span class="theme-text">Modo Oscuro</span>';
+                    themeToggle.innerHTML = '<i class="fas fa-moon"></i> <span class="theme-text">Modo Oscuro</span>';
+                    mobileThemeToggle.innerHTML = '<i class="fas fa-moon"></i> <span class="theme-text">Modo Oscuro</span>';
                 }
-            });
+            };
+            
+            themeToggle.addEventListener('click', toggleTheme);
+            mobileThemeToggle.addEventListener('click', toggleTheme);
 
             // Inicializar el slider
             const slider = new ZappingSlider();
@@ -1835,98 +1755,51 @@
                 });
             });
             
-            // Scroll to channels from navigation menu
-            document.querySelectorAll('.nav-menu a[href="#canales"]').forEach(link => {
-                link.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    smoothScrollTo('first-channel', 100);
-                    
-                    // Cerrar menú móvil si está abierto
-                    if(navMenu.classList.contains('active')) {
-                        hamburger.classList.remove('active');
-                        navMenu.classList.remove('active');
-                        mobileOverlay.classList.remove('active');
-                    }
-                });
+            // Mobile menu functionality
+            const hamburger = document.getElementById('hamburger');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileOverlay = document.getElementById('mobile-overlay');
+            const closeMenu = document.getElementById('close-menu');
+            
+            // Open menu
+            hamburger.addEventListener('click', () => {
+                mobileMenu.classList.add('active');
+                mobileOverlay.classList.add('active');
+                document.body.style.overflow = 'hidden';
             });
             
-            // Hamburger menu functionality
-            const hamburger = document.getElementById('hamburger');
-            const navMenu = document.getElementById('nav-menu');
-            const mobileOverlay = document.getElementById('mobile-overlay');
-            
-            hamburger.addEventListener('click', () => {
-                hamburger.classList.toggle('active');
-                navMenu.classList.toggle('active');
-                mobileOverlay.classList.toggle('active');
+            // Close menu
+            closeMenu.addEventListener('click', () => {
+                mobileMenu.classList.remove('active');
+                mobileOverlay.classList.remove('active');
+                document.body.style.overflow = '';
             });
             
             // Close menu when clicking overlay
             mobileOverlay.addEventListener('click', () => {
-                hamburger.classList.remove('active');
-                navMenu.classList.remove('active');
+                mobileMenu.classList.remove('active');
                 mobileOverlay.classList.remove('active');
+                document.body.style.overflow = '';
             });
 
-            // Close menu when clicking a link (mobile)
-            document.querySelectorAll('.nav-menu a').forEach(link => {
+            // Close menu when clicking a link
+            document.querySelectorAll('.mobile-menu .nav-menu a').forEach(link => {
                 link.addEventListener('click', () => {
-                    if (window.innerWidth <= 768) {
-                        hamburger.classList.remove('active');
-                        navMenu.classList.remove('active');
-                        mobileOverlay.classList.remove('active');
-                    }
+                    mobileMenu.classList.remove('active');
+                    mobileOverlay.classList.remove('active');
+                    document.body.style.overflow = '';
                 });
             });
-        });
-
-        // Additional CSS for slide animation
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes slideIn {
-                0% {
-                    opacity: 0;
-                    transform: translateX(30px) scale(0.98);
-                }
-                100% {
-                    opacity: 1;
-                    transform: translateX(0) scale(1);
-                }
-            }
-        `;
-        document.head.appendChild(style);
-    </script>
-    
-    <script type="module">
-        // Mostrar spinner mientras carga
-        document.getElementById('widget-spinner').style.display = 'block';
-        
-        // Importar el widget
-        import widgetLoader from 'https://widgets.api-sports.io/football/1.1.8/widget.module.js';
-        
-        // Configurar el widget
-        widgetLoader({
-            container: document.getElementById('wg-api-football-livescore'),
-            apiKey: '1d6903cc5dab2bfe304e22035b2aa166de2e6f9f0cd0df9ecf8ec4f1b8158436',
-            theme: 'dark',
-            refresh: 15,
-            showErrors: true,
-            onError: (error) => {
-                console.error('Error al cargar el widget:', error);
-                document.getElementById('widget-spinner').style.display = 'none';
-                document.getElementById('no-matches').style.display = 'block';
-            },
-            onLoad: () => {
-                document.getElementById('widget-spinner').style.display = 'none';
-                
-                // Verificar si hay partidos
-                setTimeout(() => {
-                    const matchesContainer = document.querySelector('.wg-container');
-                    if (!matchesContainer || matchesContainer.children.length <= 1) {
-                        document.getElementById('no-matches').style.display = 'block';
-                    }
-                }, 1000);
-            }
+            
+            // Cargar el widget de SoccerAPI
+            const loadSoccerAPIWidget = () => {
+                const script = document.createElement('script');
+                script.type = 'text/javascript';
+                script.src = 'https://ls.soccersapi.com/widget/res/w_default/widget.js';
+                document.body.appendChild(script);
+            };
+            
+            loadSoccerAPIWidget();
         });
     </script>
 </body>
