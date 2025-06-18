@@ -57,6 +57,7 @@
             align-items: center;
             justify-content: center;
             transition: opacity 0.4s ease, visibility 0.4s ease;
+            padding: 1rem;
         }
 
         .theme-modal.hidden {
@@ -1127,7 +1128,7 @@
             }
             
             .modal-content {
-                padding: 1.5rem;
+                padding: 1.5rem 1rem;
             }
             
             .theme-option-btn {
@@ -1212,7 +1213,7 @@
             
             <ul class="nav-menu" id="nav-menu">
                 <li><a href="#"><i class="fas fa-home"></i> Inicio</a></li>
-                <li><a href="#"><i class="fas fa-tv"></i> Canales</a></li>
+                <li><a href="#canales"><i class="fas fa-tv"></i> Canales</a></li>
                 <li><a href="#"><i class="fas fa-heart"></i> Favoritos</a></li>
                 <li><a href="#partidos"><i class="fas fa-futbol"></i> Partidos</a></li>
                 <li><a href="#contact"><i class="fas fa-envelope"></i> Contacto</a></li>
@@ -1293,10 +1294,10 @@
                 <h3>CYBERCAFE F.C.</h3>
                 <p>La mejor plataforma para disfrutar de deportes en vivo desde cualquier lugar del mundo.</p>
                 <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-youtube"></i></a>
+                    <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+                    <a href="https://youtube.com" target="_blank"><i class="fab fa-youtube"></i></a>
                 </div>
             </div>
             <div class="footer-column">
@@ -1306,15 +1307,15 @@
                     <li><a href="#canales"><i class="fas fa-chevron-right"></i> Canales</a></li>
                     <li><a href="#partidos"><i class="fas fa-chevron-right"></i> Partidos</a></li>
                     <li><a href="#"><i class="fas fa-chevron-right"></i> Favoritos</a></li>
-                    <li><a href="#"><i class="fas fa-chevron-right"></i> Soporte</a></li>
+                    <li><a href="#contact"><i class="fas fa-chevron-right"></i> Soporte</a></li>
                 </ul>
             </div>
             <div class="footer-column">
                 <h3>Contacto</h3>
                 <ul>
-                    <li><a href="#"><i class="fas fa-envelope"></i> info@cybercafefc.com</a></li>
-                    <li><a href="#"><i class="fas fa-phone"></i> +1 (123) 456-7890</a></li>
-                    <li><a href="#"><i class="fas fa-map-marker-alt"></i> Buenos Aires, Argentina</a></li>
+                    <li><a href="mailto:info@cybercafefc.com"><i class="fas fa-envelope"></i> info@cybercafefc.com</a></li>
+                    <li><a href="tel:+11234567890"><i class="fas fa-phone"></i> +1 (123) 456-7890</a></li>
+                    <li><a href="https://maps.google.com/?q=Buenos+Aires,Argentina" target="_blank"><i class="fas fa-map-marker-alt"></i> Buenos Aires, Argentina</a></li>
                 </ul>
             </div>
         </div>
@@ -1487,6 +1488,11 @@
                     const card = document.createElement('div');
                     card.classList.add('channel-card');
                     card.dataset.channel = index;
+                    
+                    // Añadir ID a la primera tarjeta
+                    if(index === 0) {
+                        card.id = 'first-channel';
+                    }
                     
                     card.innerHTML = `
                         <div class="card-header">
@@ -1678,6 +1684,20 @@
             }
         }
 
+        // Función para scroll suave
+        function smoothScrollTo(elementId, offset = 100) {
+            const element = document.getElementById(elementId);
+            if (element) {
+                const elementPosition = element.getBoundingClientRect().top + window.pageYOffset;
+                const offsetPosition = elementPosition - offset;
+
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: 'smooth'
+                });
+            }
+        }
+
         // Initialize when DOM is loaded
         document.addEventListener('DOMContentLoaded', function() {
             // Theme modal functionality
@@ -1756,10 +1776,21 @@
             document.querySelectorAll('a[href="#canales"]').forEach(link => {
                 link.addEventListener('click', function(e) {
                     e.preventDefault();
-                    document.getElementById('canales').scrollIntoView({ 
-                        behavior: 'smooth', 
-                        block: 'center'
-                    });
+                    smoothScrollTo('first-channel', 100);
+                });
+            });
+            
+            // Scroll to channels from navigation menu
+            document.querySelectorAll('.nav-menu a[href="#canales"]').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    smoothScrollTo('first-channel', 100);
+                    
+                    // Cerrar menú móvil si está abierto
+                    if(navMenu.classList.contains('active')) {
+                        navMenu.classList.remove('active');
+                        hamburger.classList.remove('active');
+                    }
                 });
             });
             
