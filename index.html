@@ -20,6 +20,21 @@
             --card-bg: rgba(246, 248, 250, 0.8);
         }
 
+        .dark-theme {
+            --primary-dark: #0d1117;
+            --secondary-dark: #161b22;
+            --accent-red: #ff6b6b;
+            --accent-blue: #58a6ff;
+            --accent-purple: #5865f2;
+            --text-primary: #f0f6fc;
+            --text-secondary: #8b949e;
+            --border-color: rgba(240, 246, 252, 0.1);
+            --github-dark: #0d1117;
+            --discord-dark: #1e1f29;
+            --card-bg: rgba(30, 31, 41, 0.8);
+            background: linear-gradient(135deg, #0d1117 0%, #161b22 100%);
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -35,6 +50,7 @@
             overflow-x: hidden;
             position: relative;
             touch-action: manipulation;
+            transition: background 0.5s ease;
         }
 
         body::before {
@@ -48,6 +64,10 @@
             z-index: -1;
         }
 
+        .dark-theme::before {
+            background: radial-gradient(circle at center, rgba(88, 101, 242, 0.1) 0%, transparent 70%);
+        }
+
         /* Header Mejorado */
         .header {
             background: rgba(248, 249, 250, 0.95);
@@ -59,6 +79,11 @@
             z-index: 1000;
             box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
+        }
+
+        .dark-theme .header {
+            background: rgba(13, 17, 23, 0.95);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
         }
 
         .header::before {
@@ -113,6 +138,11 @@
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             animation: float 3s ease-in-out infinite;
             transition: all 0.3s ease;
+        }
+
+        .dark-theme .soccer-ball {
+            background: #161b22;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
 
         .soccer-ball:hover {
@@ -344,6 +374,10 @@
                 backdrop-filter: blur(20px);
             }
 
+            .dark-theme .nav-menu {
+                background: linear-gradient(135deg, #0d1117, #161b22);
+            }
+
             .nav-menu.active {
                 right: 0;
             }
@@ -461,6 +495,7 @@
             justify-content: center;
             gap: 1rem;
             margin-top: 1.5rem;
+            flex-wrap: wrap;
         }
 
         .btn {
@@ -497,6 +532,18 @@
             background: rgba(88, 166, 255, 0.2);
             transform: translateY(-3px);
         }
+        
+        .btn-promiedos {
+            background: linear-gradient(45deg, #4caf50, #2e7d32);
+            color: white;
+            box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+        }
+        
+        .btn-promiedos:hover {
+            background: linear-gradient(45deg, #43a047, #1b5e20);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(76, 175, 80, 0.4);
+        }
 
         /* Zapping Slider */
         .zapping-slider {
@@ -510,6 +557,11 @@
             box-shadow: 0 0 30px rgba(88, 101, 242, 0.2);
             margin-bottom: 3rem;
             background: var(--discord-dark);
+        }
+
+        .dark-theme .zapping-slider {
+            border-color: rgba(240, 246, 252, 0.1);
+            box-shadow: 0 0 30px rgba(88, 101, 242, 0.3);
         }
 
         .slides-container {
@@ -545,6 +597,10 @@
             align-items: center;
             justify-content: center;
             position: relative;
+        }
+
+        .dark-theme .slide-content {
+            background: linear-gradient(45deg, #1a1c23, #1e2029);
         }
 
         .slide-content iframe {
@@ -750,6 +806,10 @@
             overflow: hidden;
         }
 
+        .dark-theme .channel-card {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+
         .channel-card::before {
             content: "";
             position: absolute;
@@ -839,6 +899,10 @@
             overflow: hidden;
         }
         
+        .dark-theme .agenda-section {
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
         .agenda-section::before {
             content: "";
             position: absolute;
@@ -859,6 +923,11 @@
             position: relative;
             background: rgba(255, 255, 255, 0.8);
             border: 1px solid var(--border-color);
+        }
+        
+        .dark-theme .api_football_loader {
+            background: rgba(30, 31, 41, 0.8);
+            border-color: rgba(240, 246, 252, 0.1);
         }
         
         .wg-container {
@@ -882,6 +951,11 @@
             display: flex !important;
             align-items: center !important;
             transition: all 0.3s ease;
+        }
+        
+        .dark-theme .wg-match {
+            background: rgba(30, 31, 41, 0.9) !important;
+            border-color: rgba(240, 246, 252, 0.1) !important;
         }
         
         .wg-match:hover {
@@ -961,6 +1035,10 @@
             color: var(--text-secondary);
         }
 
+        .dark-theme .footer {
+            background: #0d1117;
+        }
+
         .footer-content {
             max-width: 1200px;
             margin: 0 auto;
@@ -1037,6 +1115,10 @@
         .copyright {
             padding-top: 1.5rem;
             border-top: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .dark-theme .copyright {
+            border-color: rgba(240, 246, 252, 0.1);
         }
 
         /* Animations */
@@ -1238,6 +1320,10 @@
                 <a href="#partidos" class="btn btn-secondary">
                     <i class="fas fa-calendar-alt"></i> Agenda de Partidos
                 </a>
+                <!-- Botón PROMIEDOS agregado -->
+                <a href="https://www.promiedos.com.ar/" target="_blank" class="btn btn-promiedos">
+                    <i class="fas fa-futbol"></i> PROMIEDOS
+                </a>
             </div>
         </section>
 
@@ -1257,7 +1343,15 @@
             </div>
         </section>
 
-        <!-- Sección de Agenda de Partidos (AllSportsApi Widget) -->
+        <!-- Channels Section -->
+        <section class="channels-section" id="canales">
+            <h2 class="section-title"><i class="fas fa-tv"></i> Canales Disponibles</h2>
+            <div class="channels-grid" id="channels-grid">
+                <!-- Channel cards will be generated dynamically by JavaScript -->
+            </div>
+        </section>
+        
+        <!-- Sección de Agenda de Partidos movida debajo de canales -->
         <section class="agenda-section" id="partidos">
             <h2 class="section-title"><i class="fas fa-calendar-alt"></i> Partidos en Vivo</h2>
             <div id="wg-api-football-livescore"
@@ -1275,14 +1369,6 @@
                     <h3>No hay partidos en vivo en este momento</h3>
                     <p>Próximos partidos se mostrarán aquí cuando comiencen</p>
                 </div>
-            </div>
-        </section>
-
-        <!-- Channels Section -->
-        <section class="channels-section" id="canales">
-            <h2 class="section-title"><i class="fas fa-tv"></i> Canales Disponibles</h2>
-            <div class="channels-grid" id="channels-grid">
-                <!-- Channel cards will be generated dynamically by JavaScript -->
             </div>
         </section>
     </main>
@@ -1703,21 +1789,27 @@
             // Theme toggle functionality
             const themeToggle = document.getElementById('theme-toggle');
             const themeText = document.querySelector('.theme-text');
+            const savedTheme = localStorage.getItem('theme');
             
-            // Set initial theme to light
-            document.body.classList.add('light-theme');
-            localStorage.setItem('theme', 'light');
-            themeToggle.innerHTML = '<i class="fas fa-moon"></i> <span class="theme-text">Modo Oscuro</span>';
+            // Set initial theme
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark-theme');
+                themeToggle.innerHTML = '<i class="fas fa-sun"></i> <span class="theme-text">Modo Claro</span>';
+            } else {
+                document.body.classList.add('light-theme');
+                themeToggle.innerHTML = '<i class="fas fa-moon"></i> <span class="theme-text">Modo Oscuro</span>';
+            }
 
             // Theme toggle in navbar
             themeToggle.addEventListener('click', function() {
-                document.body.classList.toggle('light-theme');
-                if (document.body.classList.contains('light-theme')) {
-                    localStorage.setItem('theme', 'light');
-                    this.innerHTML = '<i class="fas fa-moon"></i> <span class="theme-text">Modo Oscuro</span>';
-                } else {
+                document.body.classList.toggle('dark-theme');
+                
+                if (document.body.classList.contains('dark-theme')) {
                     localStorage.setItem('theme', 'dark');
                     this.innerHTML = '<i class="fas fa-sun"></i> <span class="theme-text">Modo Claro</span>';
+                } else {
+                    localStorage.setItem('theme', 'light');
+                    this.innerHTML = '<i class="fas fa-moon"></i> <span class="theme-text">Modo Oscuro</span>';
                 }
             });
 
